@@ -31,8 +31,8 @@ function Profile() {
                     aria-haspopup='true'
                     aria-expanded={open ? 'true' : undefined}>
                     <Avatar
-                        sx={{ width: 30, height: 30 }}
-                        src='https://scontent.fvca1-3.fna.fbcdn.net/v/t39.30808-6/347250745_2810748825727645_4362687771346460334_n.jpg?stp=cp6_dst-jpg&_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFe7MmDWU91T1PO8XPd5-oTHcmPyrpG0nMdyY_KukbSc172FREdp2AwPAvsDTmBRGLipT9RxP0mabsxbBPTE19Y&_nc_ohc=QyLUtG2ZHWEQ7kNvgGpBi4F&_nc_ht=scontent.fvca1-3.fna&oh=00_AYA82Oe486JEK8l7g0aoU6lzVRX83NQtXYnzqhIEatXRWg&oe=66492842'
+                        sx={{ width: 36, height: 36 }}
+                        src='https://cdn.24h.com.vn/upload/3-2023/images/2023-07-09/Than-hinh-muot-muon-muot-cua-gai-xinh-xu-Han-co-trieu-fan-han-kyung-1688907525-217-width1440height1728.jpeg'
                         alt='Avatar'></Avatar>
                 </IconButton>
             </Tooltip>
