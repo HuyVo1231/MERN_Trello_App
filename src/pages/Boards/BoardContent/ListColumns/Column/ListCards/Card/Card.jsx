@@ -13,14 +13,7 @@ import { mapOrder } from '~/utils/sorts'
 
 function Card({ card }) {
   // Xử lý kéo thả
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging
-  } = useSortable({
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: card._id,
     data: { ...card }
   })
@@ -40,11 +33,7 @@ function Card({ card }) {
   const orderedCards = mapOrder(card?.cards, card?.cardOrderIds, '_id')
 
   const shouldShowCardAction = () => {
-    return (
-      !!card?.memberIds?.length ||
-      !!card?.comments?.length ||
-      !!card?.attachments?.length
-    )
+    return !!card?.memberIds?.length || !!card?.comments?.length || !!card?.attachments?.length
   }
 
   return (
@@ -65,7 +54,7 @@ function Card({ card }) {
       {card?.cover && (
         <CardMedia
           sx={{
-            height: '140px',
+            height: '200px',
             width: '100%',
             cursor: 'pointer'
           }}
@@ -79,17 +68,17 @@ function Card({ card }) {
         <CardActions sx={{ p: '0 4px 8px 4px' }}>
           {!!card?.memberIds?.length && (
             <Button size='small' startIcon={<GroupIcon />}>
-              20
+              {card?.memberIds}
             </Button>
           )}
           {!!card?.comments?.length && (
             <Button size='small' startIcon={<CommentIcon />}>
-              15
+              {card?.comments}
             </Button>
           )}
           {!!card?.attachments?.length && (
             <Button size='small' startIcon={<AttachmentIcon />}>
-              10
+              {card?.attachments}
             </Button>
           )}
         </CardActions>

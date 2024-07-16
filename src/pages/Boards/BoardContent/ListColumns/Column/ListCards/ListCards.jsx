@@ -4,9 +4,7 @@ import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
 function ListCard({ cards }) {
   return (
-    <SortableContext
-      items={cards.map((card) => card._id)}
-      strategy={verticalListSortingStrategy}>
+    <SortableContext items={cards.map((card) => card._id)} strategy={verticalListSortingStrategy}>
       <Box
         sx={{
           p: '0px 5px 5px 5px',
@@ -20,7 +18,6 @@ function ListCard({ cards }) {
                     ${theme.spacing(5)} - 
                     ${theme.trello.colunmHeaderHeight} - 
                     ${theme.trello.colunmFooterHeight})`,
-
           '&::-webkit-scrollbar-thumb': {
             backgroundColor: '#ced0da',
             borderRadius: '8px'

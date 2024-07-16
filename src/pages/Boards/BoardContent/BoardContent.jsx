@@ -15,7 +15,6 @@ import {
   closestCenter
 } from '@dnd-kit/core'
 import { MouseSensor, TouchSensor } from '~/customLibrary/DndKitSensors'
-
 import { arrayMove } from '@dnd-kit/sortable'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { cloneDeep, isEmpty } from 'lodash'
@@ -82,6 +81,7 @@ function BoardContent({
     setOrderedColumns((prevColumn) => {
       // Find index of overCard in over Column
       const overCardIndex = overColumn?.cards?.findIndex((card) => card._id === overCardId)
+
       // Caculate new card index
       let newCardIndex
       const isBelowOverItem =

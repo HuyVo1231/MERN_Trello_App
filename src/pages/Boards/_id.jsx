@@ -19,15 +19,12 @@ import { generatePlaceholderCard } from '~/utils/formatters'
 import { mapOrder } from '~/utils/sorts'
 import { Typography } from '@mui/material'
 import { toast } from 'react-toastify'
-
-// import { mockData } from '~/apis/mock-data'
+import { useParams } from 'react-router-dom'
 
 function Board() {
   const [board, setBoard] = useState(null)
-
+  const { boardId } = useParams()
   useEffect(() => {
-    const boardId = '668232f43ef3256ba7bb6771'
-
     fetchBoardDetailsAPI(boardId).then((board) => {
       // Sắp xếp dữ liệu COLUMNS trước khi đưa xuống Conponents con
       board.columns = mapOrder(board.columns, board.columnOrderIds, '_id')
