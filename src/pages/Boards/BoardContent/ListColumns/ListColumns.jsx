@@ -9,7 +9,13 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable'
 import { useState } from 'react'
 
-function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDetails }) {
+function ListColumns({
+  columns,
+  createNewColumn,
+  createNewCard,
+  deleteColumnDetails,
+  handleUpdateCard
+}) {
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
   const toggleNewColumnForm = () => setOpenNewColumnForm(!openNewColumnForm)
 
@@ -57,6 +63,7 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
               column={column}
               createNewCard={createNewCard}
               deleteColumnDetails={deleteColumnDetails}
+              handleUpdateCard={handleUpdateCard}
             />
           )
         })}

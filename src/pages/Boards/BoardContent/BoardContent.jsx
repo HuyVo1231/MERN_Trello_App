@@ -34,7 +34,8 @@ function BoardContent({
   moveColumns,
   moveCardInTheSameColumn,
   moveCardToDifferentColumn,
-  deleteColumnDetails
+  deleteColumnDetails,
+  handleUpdateCard
 }) {
   // Sensor
   const mouseSensor = useSensor(MouseSensor, {
@@ -356,6 +357,7 @@ function BoardContent({
           createNewColumn={createNewColumn}
           createNewCard={createNewCard}
           deleteColumnDetails={deleteColumnDetails}
+          handleUpdateCard={handleUpdateCard}
         />
         <DragOverlay dropAnimation={customDropAnimation}>
           {!activeDragItemType && null}

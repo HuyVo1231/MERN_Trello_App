@@ -14,6 +14,7 @@ export const fetchBoardDetailsAPI = async (boardId) => {
   const response = await axios.get(`${API_ROOT}/v1/boards/${boardId}`)
   return response.data
 }
+
 export const deleteBoardByUserIdAPI = async (boardId, boardOwner) => {
   const response = await axios.delete(`${API_ROOT}/v1/boards/deleteBoardsByUserId/`, {
     data: {
@@ -57,6 +58,10 @@ export const deleteColumnDetailsAPI = async (columnId) => {
 // Card
 export const createNewCardAPI = async (newCordData) => {
   const response = await axios.post(`${API_ROOT}/v1/cards`, newCordData)
+  return response.data
+}
+export const updateCardAPI = async (cardId, newCordData) => {
+  const response = await axios.put(`${API_ROOT}/v1/cards/${cardId}`, newCordData)
   return response.data
 }
 

@@ -23,7 +23,7 @@ import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
 import { useConfirm } from 'material-ui-confirm'
 
-function Column({ column, createNewCard, deleteColumnDetails }) {
+function Column({ column, createNewCard, deleteColumnDetails, handleUpdateCard }) {
   // Xử lý kéo thả
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
@@ -205,7 +205,7 @@ function Column({ column, createNewCard, deleteColumnDetails }) {
           </Box>
         </Box>
         {/* Box List Card*/}
-        <ListCard cards={orderedCards} />
+        <ListCard cards={orderedCards} handleUpdateCard={handleUpdateCard} />
         {/* Box Column Footer*/}
         <Box
           sx={{

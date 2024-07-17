@@ -12,7 +12,8 @@ import {
   updateBoardDetailsAPI,
   updateColumnDetailsAPI,
   moveCardToDifferentColumnAPI,
-  deleteColumnDetailsAPI
+  deleteColumnDetailsAPI,
+  updateCardAPI
 } from '~/apis'
 import { isEmpty } from 'lodash'
 import { generatePlaceholderCard } from '~/utils/formatters'
@@ -149,6 +150,27 @@ function Board() {
     })
   }
 
+  const handleUpdateCard = (updatedCard) => {
+    // Tìm card cần cập nhật trong board
+    const updatedBoard = { ...board }
+
+    // Lặp qua các columns trong board
+    updatedBoard.columns.forEach((column) => {
+      // Tìm card cần cập nhật trong column
+      const updatedCards = column.cards.map((card) =>
+        card._id === updatedCard._id ? updatedCard : card
+      )
+
+      // Cập nhật lại danh sách card trong column
+      column.cards = updatedCards
+    })
+    console.log(updatedCard)
+    toast.success('Update card successfully')
+    updateCardAPI(updatedCard._id, updatedCard)
+    // Cập nhật lại board với column đã được cập nhật
+    setBoard(updatedBoard)
+  }
+
   if (!board) {
     return (
       <Box
@@ -181,6 +203,7 @@ function Board() {
         moveCardInTheSameColumn={moveCardInTheSameColumn}
         moveCardToDifferentColumn={moveCardToDifferentColumn}
         deleteColumnDetails={deleteColumnDetails}
+        handleUpdateCard={handleUpdateCard}
       />
     </Container>
   )

@@ -10,8 +10,22 @@ import AttachmentIcon from '@mui/icons-material/Attachment'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { mapOrder } from '~/utils/sorts'
+import EditCardModal from './EditCardModal'
+import { useState } from 'react'
+import Box from '@mui/material/Box'
 
-function Card({ card }) {
+function Card({ card, handleUpdateCard }) {
+  // Edit card
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleCardClick = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
   // Xử lý kéo thả
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: card._id,
@@ -37,53 +51,62 @@ function Card({ card }) {
   }
 
   return (
-    <MuiCard
-      ref={setNodeRef}
-      style={dndKitCardStyles}
-      {...attributes}
-      {...listeners}
-      sx={{
-        cursor: 'pointer',
-        boxShadow: '0 1px 1px rgba(0,0,0,0.2)',
-        overflow: 'unset',
-        border: '1px solid transparent',
-        '&:hover': {
-          borderColor: (theme) => theme.palette.primary.main
-        }
-      }}>
-      {card?.cover && (
-        <CardMedia
-          sx={{
-            height: '200px',
-            width: '100%',
-            cursor: 'pointer'
-          }}
-          image={card?.cover}
-        />
-      )}
-      <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
-        <Typography>{card?.title}</Typography>
-      </CardContent>
-      {shouldShowCardAction() && (
-        <CardActions sx={{ p: '0 4px 8px 4px' }}>
-          {!!card?.memberIds?.length && (
-            <Button size='small' startIcon={<GroupIcon />}>
-              {card?.memberIds}
-            </Button>
-          )}
-          {!!card?.comments?.length && (
-            <Button size='small' startIcon={<CommentIcon />}>
-              {card?.comments}
-            </Button>
-          )}
-          {!!card?.attachments?.length && (
-            <Button size='small' startIcon={<AttachmentIcon />}>
-              {card?.attachments}
-            </Button>
-          )}
-        </CardActions>
-      )}
-    </MuiCard>
+    <Box>
+      <MuiCard
+        ref={setNodeRef}
+        style={dndKitCardStyles}
+        {...attributes}
+        {...listeners}
+        sx={{
+          cursor: 'pointer',
+          boxShadow: '0 1px 1px rgba(0,0,0,0.2)',
+          overflow: 'unset',
+          border: '1px solid transparent',
+          '&:hover': {
+            borderColor: (theme) => theme.palette.primary.main
+          }
+        }}
+        onClick={handleCardClick}>
+        {card?.cover && (
+          <CardMedia
+            sx={{
+              height: '200px',
+              width: '100%',
+              cursor: 'pointer'
+            }}
+            image={card?.cover}
+          />
+        )}
+        <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
+          <Typography>{card?.title}</Typography>
+        </CardContent>
+        {shouldShowCardAction() && (
+          <CardActions sx={{ p: '0 4px 8px 4px' }}>
+            {!!card?.memberIds?.length && (
+              <Button size='small' startIcon={<GroupIcon />}>
+                {card?.memberIds}
+              </Button>
+            )}
+            {!!card?.comments?.length && (
+              <Button size='small' startIcon={<CommentIcon />}>
+                {card?.comments}
+              </Button>
+            )}
+            {!!card?.attachments?.length && (
+              <Button size='small' startIcon={<AttachmentIcon />}>
+                {card?.attachments}
+              </Button>
+            )}
+          </CardActions>
+        )}
+      </MuiCard>
+      <EditCardModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        card={card}
+        handleUpdateCard={handleUpdateCard}
+      />
+    </Box>
   )
 }
 
