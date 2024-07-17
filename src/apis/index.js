@@ -14,6 +14,14 @@ export const fetchBoardDetailsAPI = async (boardId) => {
   const response = await axios.get(`${API_ROOT}/v1/boards/${boardId}`)
   return response.data
 }
+export const deleteBoardByUserIdAPI = async (boardId, boardOwner) => {
+  const response = await axios.delete(`${API_ROOT}/v1/boards/deleteBoardsByUserId/`, {
+    data: {
+      idBoard: boardId,
+      boardOwner: boardOwner
+    }
+  })
+}
 
 export const createNewBoardAPI = async (newBoard) => {
   const response = await axios.post(`${API_ROOT}/v1/boards/`, newBoard)

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import AppBar from '~/components/AppBar/AppBar'
 import Sidebar from './Sidebar'
 import MainContent from './MainContent'
-import { fetchUserBoardAPI, createNewBoardAPI } from '~/apis'
+import { fetchUserBoardAPI, createNewBoardAPI, deleteBoardByUserIdAPI } from '~/apis'
 
 const Home = () => {
   const [boards, setBoards] = useState([])
@@ -40,6 +40,15 @@ const Home = () => {
     }
   }
 
+  const deleteBoard = async (boardId) => {
+    try {
+      await deleteBoardByUserIdAPI(boardId, userId)
+      setBoards((prev) => prev.filter((b) => b._id !== boardId))
+    } catch (error) {
+      console.error('Error deleting board:', error)
+    }
+  }
+
   const handlePageChange = (event, value) => {
     setPage(value)
   }
@@ -56,7 +65,7 @@ const Home = () => {
           <Sidebar createNewBoard={createNewBoard} />
         </Box>
         <Box sx={{ width: '75%' }}>
-          <MainContent boards={boards} loading={loading} />
+          <MainContent boards={boards} loading={loading} deleteBoard={deleteBoard} />
           <Box sx={{ display: 'flex', justifyContent: 'center', padding: '16px' }}>
             <Pagination
               count={totalPages}

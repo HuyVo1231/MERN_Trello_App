@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Box,
   Card,
@@ -6,16 +6,53 @@ import {
   Typography,
   Button,
   CardActions,
-  CircularProgress
+  CircularProgress,
+  IconButton,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  Divider
 } from '@mui/material'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+import ContentCut from '@mui/icons-material/ContentCut'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { generateRandomColor } from '~/utils/formatters'
 import { useNavigate } from 'react-router-dom'
 
-const MainContent = ({ boards, loading }) => {
+const MainContent = ({ boards, loading, deleteBoard }) => {
   const navigate = useNavigate()
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [selectedBoardId, setSelectedBoardId] = useState(null)
+  const [boardColors, setBoardColors] = useState({})
+
+  const open = Boolean(anchorEl)
+
+  useEffect(() => {
+    const colors = {}
+    boards.forEach((board) => {
+      colors[board._id] = generateRandomColor()
+    })
+    setBoardColors(colors)
+  }, [boards])
+
+  const handleMenuOpen = (event, boardId) => {
+    setAnchorEl(event.currentTarget)
+    setSelectedBoardId(boardId)
+  }
+
+  const handleMenuClose = () => {
+    setAnchorEl(null)
+    setSelectedBoardId(null)
+  }
 
   const handleClick = (boardId) => {
     navigate(`/boards/${boardId}`)
+  }
+
+  const handleDeleteClick = () => {
+    deleteBoard(selectedBoardId)
+    handleMenuClose()
   }
 
   return (
@@ -47,7 +84,7 @@ const MainContent = ({ boards, loading }) => {
                 <Box
                   sx={{
                     height: '70px',
-                    backgroundColor: generateRandomColor(),
+                    backgroundColor: boardColors[board._id],
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -79,10 +116,56 @@ const MainContent = ({ boards, loading }) => {
                     {board.description}
                   </Typography>
                 </CardContent>
-                <CardActions sx={{ justifyContent: 'flex-end' }}>
+                <CardActions sx={{ justifyContent: 'space-between' }}>
                   <Button size='medium' onClick={() => handleClick(board._id)}>
                     View board
                   </Button>
+                  <IconButton onClick={(event) => handleMenuOpen(event, board._id)}>
+                    <MoreVertIcon />
+                  </IconButton>
+                  <Menu
+                    id='basic-menu-column-dropdown'
+                    anchorEl={anchorEl}
+                    open={open && selectedBoardId === board._id}
+                    onClose={handleMenuClose}
+                    MenuListProps={{
+                      'aria-labelledby': 'basic-column-dropdown'
+                    }}>
+                    <MenuItem>
+                      <ListItemIcon>
+                        <ContentCut fontSize='small' />
+                      </ListItemIcon>
+                      <ListItemText>Cut</ListItemText>
+                    </MenuItem>
+                    <MenuItem>
+                      <ListItemIcon>
+                        <ContentCut fontSize='small' />
+                      </ListItemIcon>
+                      <ListItemText>Copy</ListItemText>
+                    </MenuItem>
+                    <MenuItem>
+                      <ListItemIcon>
+                        <ContentCut fontSize='small' />
+                      </ListItemIcon>
+                      <ListItemText>Paste</ListItemText>
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem
+                      onClick={handleDeleteClick}
+                      sx={{
+                        '&:hover': {
+                          color: 'warning.dark',
+                          '& .delete-forever-icon': {
+                            color: 'warning.dark'
+                          }
+                        }
+                      }}>
+                      <ListItemIcon className='delete-forever-icon'>
+                        <DeleteForeverIcon fontSize='small' />
+                      </ListItemIcon>
+                      <ListItemText>Delete this board</ListItemText>
+                    </MenuItem>
+                  </Menu>
                 </CardActions>
               </Card>
             ))
