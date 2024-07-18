@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, TextField, Typography } from '@mui/material'
+import { Button, TextField, Typography, Box } from '@mui/material'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useDispatch } from 'react-redux'
@@ -133,6 +133,11 @@ const Register = () => {
           style={{ backgroundColor: '#1976d2', color: 'white' }}>
           Register
         </Button>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Button variant='text' onClick={() => navigate('/login')}>
+            Are uou already an account? Login
+          </Button>
+        </Box>
       </form>
     </div>
   )

@@ -20,12 +20,16 @@ const EditCardModal = ({ isOpen, onClose, card, handleUpdateCard }) => {
           transform: 'translate(-50%, -50%)',
           width: 400,
           bgcolor: 'background.paper',
-          border: '2px solid #000',
+          borderRadius: 2,
           boxShadow: 24,
           p: 4
         }}>
-        <Typography variant='h6' component='h2'>
+        <Typography variant='h6' component='h2' gutterBottom>
           Edit Card
+        </Typography>
+        <Typography variant='body2' color='textSecondary' gutterBottom>
+          Please provide a new title and description for your card. Ensure that the details are
+          accurate and concise to maintain clarity.
         </Typography>
         <TextField
           fullWidth
@@ -43,12 +47,14 @@ const EditCardModal = ({ isOpen, onClose, card, handleUpdateCard }) => {
           multiline
           rows={4}
         />
-        <Button variant='contained' color='primary' onClick={handleSave} sx={{ mt: 2 }}>
-          Save
-        </Button>
-        <Button variant='outlined' color='secondary' onClick={onClose} sx={{ mt: 2, ml: 2 }}>
-          Cancel
-        </Button>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+          <Button variant='outlined' color='secondary' onClick={onClose} sx={{ mr: 2 }}>
+            Cancel
+          </Button>
+          <Button variant='contained' color='primary' onClick={handleSave}>
+            Save
+          </Button>
+        </Box>
       </Box>
     </Modal>
   )

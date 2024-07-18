@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, TextField, Typography } from '@mui/material'
+import { Button, TextField, Typography, Box } from '@mui/material'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { loginUserAPI } from '~/apis' // Điều chỉnh đường dẫn import theo thực tế sử dụng
@@ -47,7 +47,7 @@ const Login = () => {
         flexDirection: 'column'
       }}>
       <ToastContainer position='top-center' autoClose={3000} />
-      <Typography component='h1' variant='h5' style={{ marginBottom: '1rem', color: 'white' }}>
+      <Typography component='h1' variant='h5' sx={{ marginBottom: '1rem', color: 'white' }}>
         Sign in
       </Typography>
       <form
@@ -58,7 +58,8 @@ const Login = () => {
           backgroundColor: 'rgba(255, 255, 255, 0.8)',
           padding: '2rem',
           borderRadius: '8px',
-          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)'
+          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+          marginBottom: '4rem'
         }}>
         <TextField
           variant='outlined'
@@ -94,6 +95,11 @@ const Login = () => {
           style={{ backgroundColor: '#1976d2', color: 'white' }}>
           Sign In
         </Button>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Button variant='text' onClick={() => navigate('/register')}>
+            Don't have an account? Register
+          </Button>
+        </Box>
       </form>
     </div>
   )
