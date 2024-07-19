@@ -164,7 +164,6 @@ function Board() {
       // Cập nhật lại danh sách card trong column
       column.cards = updatedCards
     })
-    console.log(updatedCard)
     toast.success('Update card successfully')
     updateCardAPI(updatedCard._id, updatedCard)
     // Cập nhật lại board với column đã được cập nhật

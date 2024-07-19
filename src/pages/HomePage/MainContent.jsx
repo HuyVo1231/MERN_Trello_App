@@ -19,8 +19,10 @@ import ContentCut from '@mui/icons-material/ContentCut'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { generateRandomColor } from '~/utils/formatters'
 import { useNavigate } from 'react-router-dom'
+import { useConfirm } from 'material-ui-confirm'
 
 const MainContent = ({ boards, loading, deleteBoard }) => {
+  const confirmDeleteBoard = useConfirm()
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState(null)
   const [selectedBoardId, setSelectedBoardId] = useState(null)
@@ -51,8 +53,19 @@ const MainContent = ({ boards, loading, deleteBoard }) => {
   }
 
   const handleDeleteClick = () => {
-    deleteBoard(selectedBoardId)
-    handleMenuClose()
+    confirmDeleteBoard({
+      description: 'This action will permanently delete your Board and its Columns! Are you sure?',
+      title: 'Delete Board?',
+      confirmationText: 'Confirm',
+      cancellationText: 'Cancel',
+      allowClose: false,
+      buttonOrder: ['confirm', 'cancel']
+    })
+      .then(() => {
+        deleteBoard(selectedBoardId)
+        handleMenuClose()
+      })
+      .catch(() => {})
   }
 
   return (

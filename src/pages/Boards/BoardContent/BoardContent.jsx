@@ -286,10 +286,6 @@ function BoardContent({
 
       // Gọi lên Components cha để call API
       moveColumns(dndOrderedColumn)
-
-      // const dndOrderedColumnIds = dndOrderedColumn.map((c) => c._id)
-      // console.log('dndOrderedColumnIds', dndOrderedColumnIds)
-      // console.log('dndOrderedColumn', dndOrderedColumn)
     }
 
     setActiveDragItemId(null)

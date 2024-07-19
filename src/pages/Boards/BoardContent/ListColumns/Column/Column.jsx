@@ -58,13 +58,14 @@ function Column({ column, createNewCard, deleteColumnDetails, handleUpdateCard }
 
   const [newCardTitle, setNewCardTitle] = useState('')
   const addNewCard = async () => {
-    if (!newCardTitle) {
+    const trimmedTitle = newCardTitle.trim()
+    if (!trimmedTitle) {
       toast.error('Please input Card title...')
       return
     }
 
     const newCardData = {
-      title: newCardTitle,
+      title: trimmedTitle,
       columnId: column._id
     }
     // Gọi lên component cha
@@ -78,7 +79,7 @@ function Column({ column, createNewCard, deleteColumnDetails, handleUpdateCard }
   const confirmDeleteColumn = useConfirm()
   const handleDeleteColumn = () => {
     confirmDeleteColumn({
-      description: 'This action will permanetly delete your Column and its Cards! Are you sure?',
+      description: 'This action will permanently delete your Column and its Cards! Are you sure?',
       title: 'Delete Column?',
       confirmationText: 'Confirm',
       cancellationText: 'Cancel',

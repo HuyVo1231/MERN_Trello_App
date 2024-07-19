@@ -24,16 +24,20 @@ const CreateBoardDialog = ({ open, handleClose, createNewBoard }) => {
   const [type, setType] = useState('')
 
   const handleSubmit = () => {
+    // Trim title and description
+    const trimmedTitle = title.trim()
+    const trimmedDescription = description.trim()
+
     // Handle form submission
-    if (!title || !description || !type) {
+    if (!trimmedTitle || !trimmedDescription || !type) {
       toast.error('Vui lòng nhập đầy đủ các trường')
       return
     }
 
     createNewBoard({
       boardOwner,
-      title,
-      description,
+      title: trimmedTitle,
+      description: trimmedDescription,
       type
     })
     handleClose()

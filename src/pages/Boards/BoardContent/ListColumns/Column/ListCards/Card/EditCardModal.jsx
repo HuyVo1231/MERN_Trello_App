@@ -14,7 +14,7 @@ const EditCardModal = ({ isOpen, onClose, card, handleUpdateCard }) => {
   }
 
   return (
-    <Modal open={isOpen} onClose={onClose}>
+    <Modal open={isOpen} onClose={onClose} data-no-dnd='true'>
       <Box
         sx={{
           position: 'absolute',

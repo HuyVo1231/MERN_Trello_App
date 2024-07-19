@@ -22,14 +22,15 @@ function ListColumns({
   const [newColumnTitle, setNewColumnTitle] = useState('')
 
   const addNewColumn = () => {
-    if (!newColumnTitle) {
+    const trimmedTitle = newColumnTitle.trim()
+    if (!trimmedTitle) {
       toast.error('Please input column title...')
       return
     }
 
     // Call API
     const newColumnData = {
-      title: newColumnTitle
+      title: trimmedTitle
     }
 
     // Function này được truyền từ Components cha xuống và ở đây truyền dữ liệu lên Components cha và thực thi
